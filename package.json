@@ -1,0 +1,27 @@
+{
+  "name": "index.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nesty11/myFlix-client.git"
+  },
+  "author": "Nestor Vale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nesty11/myFlix-client/issues"
+  },
+  "homepage": "https://github.com/nesty11/myFlix-client#readme",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.10.0",
+    "process": "^0.11.10"
+  }
+}
