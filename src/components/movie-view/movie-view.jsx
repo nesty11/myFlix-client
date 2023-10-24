@@ -24,3 +24,4 @@ export const MovieView = ({ movie, onBackClick }) => {
     </div>
   );
 };
+export {MovieView}
