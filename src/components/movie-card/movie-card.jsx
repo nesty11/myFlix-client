@@ -9,4 +9,3 @@ export const MovieCard = ({ movie, onMovieClick }) => {
     </div>
   );
 };
-export {MovieCard}
