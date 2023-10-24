@@ -27238,7 +27238,7 @@ const MainView = ()=>{
         children: movies.map((movie)=>{
             return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                 movieData: movie,
-                onClick: (newSelectedMovie)=>{
+                onMovieClick: (newSelectedMovie)=>{
                     setSelectedMovie(newSelectedMovie);
                 }
             }, movie.id, false, {
