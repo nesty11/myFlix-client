@@ -1,62 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: "Star Wars: Revenge of the Sith",
-      description:
-        "Three years into the Clone Wars, Obi-Wan pursues a new threat, while Anakin is lured by Chancellor Palpatine into a sinister plot to rule the galaxy.",
-      genre: "Action",
-      image:
-        "https://www.themoviedb.org/t/p/original/nduFqlQF4cAFJ3OIfrpsISDvoxq.jpg",
-      director: "George Lucas",
-    },
-    {
-      id: 2,
-      title: "Dungeons & Dragons: Honor Among Thieves",
-      description:
-        "A charming thief and a band of unlikely adventurers embark on an epic quest to retrieve a lost relic, but things go dangerously awry when they run afoul of the wrong people.",
-      genre: "Fantasy",
-      image:
-        "https://www.themoviedb.org/t/p/original/tzUrEepcNv20YrS2jlBY4B6sMZX.jpg",
-      director: "John Francis Daley",
-    },
-    {
-      id: 3,
-      title: "Princess Mononoke",
-      description:
-        "On a journey to find the cure for a Tatarigami's curse, Ashitaka finds himself in the middle of a war between the forest gods and Tatara, a mining colony. In this quest he also meets San, the Mononoke Hime.",
-      genre: "Adventure",
-      image:
-        "https://www.themoviedb.org/t/p/original/58LcltHMRBICiavCzpAcI2YQvhQ.jpg",
-      director: "Hayao Miyazaki",
-    },
-    {
-      id: 4,
-      title: "Spider-Man: No Way Home",
-      description:
-        "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
-      genre: "Action",
-      image:
-        "https://www.themoviedb.org/t/p/original/uJYYizSuA9Y3DCs0qS4qWvHfZg4.jpg",
-      director: "Jon Watts",
-    },
-    {
-      id: 5,
-      title: "Spider-Man: Across The Spider-Verse",
-      description:
-        "Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash on how to handle a new threat, Miles must redefine what it means to be a hero.",
-      genre: "Animation",
-      image:
-        "https://www.themoviedb.org/t/p/original/zknrogDlwcmaz3yHkA3yEhy005t.jpg",
-      director: "Joaquim Dos Santos",
-    },
-  ]);
+  const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    fetch("https://nvmyflix-06d7b8d88193.herokuapp.com/movies")
+    .then((response) => response.json())
+    .then((data) => {
+      const moviesFromApi = data.map((movie) => {
+        return {
+          _id: movie.id,
+            Title: movie.Title,
+            Description: movie.Description,
+            Genre: {
+              Name: movie.Genre.Name,
+              Description: movie.Genre.Description
+            },
+            Director: {
+              Name: movie.Director.Name,
+              Bio: Director.Bio,
+              Birth: Director.Birth
+            },
+            Featured: movie.Featured
+        };
+      });
+      setMovies(moviesFromApi);
+    });
+  }, []);
+
   if (selectedMovie) {
     return (
       <MovieView
@@ -74,7 +49,7 @@ export const MainView = () => {
       {movies.map((movie) => {
         return (
           <MovieCard
-            key={movie.id}
+            key={movie.Title}
             movieData={movie}
             onMovieClick={(newSelectedMovie) => {
               setSelectedMovie(newSelectedMovie);
