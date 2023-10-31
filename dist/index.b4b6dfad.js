@@ -27191,8 +27191,8 @@ const MainView = ()=>{
                     },
                     Director: {
                         Name: movie.Director.Name,
-                        Bio: Director.Bio,
-                        Birth: Director.Birth
+                        Bio: movie.Director.Bio,
+                        Birth: movie.Director.Birth
                     },
                     Featured: movie.Featured
                 };
