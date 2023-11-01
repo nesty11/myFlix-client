@@ -24,7 +24,7 @@ MovieCard.propTypes = {
       Bio: PropTypes.string,
       Birth: PropTypes.string
     }),
-    Featured: PropTypes.string
+    Featured: PropTypes.bool
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired
 };

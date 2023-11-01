@@ -27282,7 +27282,7 @@ MovieCard.propTypes = {
             Bio: (0, _propTypesDefault.default).string,
             Birth: (0, _propTypesDefault.default).string
         }),
-        Featured: (0, _propTypesDefault.default).string
+        Featured: (0, _propTypesDefault.default).bool
     }).isRequired,
     onMovieClick: (0, _propTypesDefault.default).func.isRequired
 };
