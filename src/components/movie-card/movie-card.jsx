@@ -18,13 +18,13 @@ MovieCard.propTypes = {
     Description: PropTypes.string,
     Genre: PropTypes.shape({
       Name: PropTypes.string,
-      Description: PropTypes.string
+      Description: PropTypes.string,
     }),
     Director: PropTypes.shape({
       Bio: PropTypes.string,
-      Birth: PropTypes.string
+      Birth: PropTypes.string,
     }),
-    Featured: PropTypes.bool
+    Featured: PropTypes.bool,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
+  onMovieClick: PropTypes.func.isRequired,
 };
