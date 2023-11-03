@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export const SignupView = () => {
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -10,20 +11,19 @@ export const SignupView = () => {
     event.preventDefault();
 
     const data = {
+      Name: name,
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday,
     };
 
-    fetch("SIGNUP_URL", {
-      //Sign up url will be replaced in the future
+    fetch("https://nvmyflix-06d7b8d88193.herokuapp.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
-        //Content type to be replaced in the future
-      },
+        "Content-Type": "application/json"
+      }
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
@@ -37,6 +37,15 @@ export const SignupView = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
+        Name:
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </label>
+      <label>
         Username:
         <input
           type="text"
@@ -44,6 +53,7 @@ export const SignupView = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength="5"
+          title="Username must be at least 5 characters long."
         />
       </label>
       <label>
@@ -54,8 +64,8 @@ export const SignupView = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength="6"
-          pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])"
-          title="Password must contain at least one number and one symbol."
+          pattern="^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$"
+          title="Password must be at least 6 characters long, contain at least one number and one symbol."
         />
       </label>
       <label>
@@ -76,7 +86,7 @@ export const SignupView = () => {
           required
         />
       </label>
-      <button type="submit">Sumbit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };
