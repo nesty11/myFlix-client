@@ -7,18 +7,17 @@ import { SignupView } from "../signup-view/signup-view";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser? storedUser : null);
+  const [token, setToken] = useState(storedToken? storedToken : null);
   const [movies, setMovies] = useState([]);
-
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
 
   useEffect(() => {
     if (!token) {
       return;
     }
     fetch("https://nvmyflix-06d7b8d88193.herokuapp.com/movies", {
-      hearders: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -79,7 +78,7 @@ export const MainView = () => {
         >
           Logout
         </button>
-        <div>The list is empty!</div>;
+        <div>The list is empty!</div>
       </>
     );
   }
