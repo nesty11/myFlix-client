@@ -1,3 +1,7 @@
+import "./movie-view.scss";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
@@ -20,7 +24,13 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Director: </span>
         <span>{movie.Director.Name}</span>
       </div>
-      <button onClick={onBackClick}>Back</button>
+      <Button
+        onClick={onBackClick}
+        className="back-button"
+        style={{ cursor: "pointer" }}
+      >
+        Back
+      </Button>
     </div>
   );
 };
