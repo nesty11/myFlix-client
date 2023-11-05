@@ -1,11 +1,18 @@
-$color: steelblue;
 
-.my-flix {
-  color: $color;
-}
+/* TEAL LIGHTNING
+#041421
+#042630
+#4c7273
+#86b9b0
+#d0d6d6 */
+
+$body-bg: #86b9b0;
+
 
 img {
     width: 100%;
     max-width: 400px;
     height: auto;
   }
+
+  @import '~bootstrap/scss/bootstrap.scss';
