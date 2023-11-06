@@ -93,6 +93,8 @@ export const MainView = () => {
             className="logout-button"
             onClick={() => {
               setUser(null);
+              setToken(null);
+              localStorage.clear();
             }}
           >
             Logout
