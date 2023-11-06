@@ -7,8 +7,8 @@ export const MovieCard = ({ movieData, onMovieClick }) => {
     <Card className="card">
       <Card.Img variant="top" src={movieData.image} />
       <Card.Body className="d-flex flex-column align-items-center">
-        <Card.Title className="text-center mb-3">{movieData.title}</Card.Title>
-        <Card.Text className="text-center mb-3">{movieData.director}</Card.Text>
+        <Card.Title className="text-center mb-3">{movieData.Title}</Card.Title>
+        <Card.Text className="text-center mb-3">{movieData.Director.Name}</Card.Text>
         <Button
           className="open-button"
           onClick={() => onMovieClick(movieData)}
