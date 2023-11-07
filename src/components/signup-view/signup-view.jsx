@@ -45,6 +45,15 @@ export const SignupView = () => {
           <CardGroup className="">
             <Card className="mb- border border-0">
               <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="formName">
+                  <Form.Label>Name:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </Form.Group>
                 <Form.Group controlId="formUsername">
                   <Form.Label>Username:</Form.Label>
                   <Form.Control
