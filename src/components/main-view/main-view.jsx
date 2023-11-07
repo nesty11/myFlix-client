@@ -18,7 +18,8 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    fetch("https://nvmyflix-06d7b8d88193.herokuapp.com/movies", {
+    //https://nvmyflix-06d7b8d88193.herokuapp.com
+    fetch("https://movieapi-2cmo.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
