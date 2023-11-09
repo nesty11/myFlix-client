@@ -6,7 +6,71 @@
   padding: 4px 12px;
 }
 
-.card .open-button {
+.card {
+  width: 300px;
+  margin: 10px;
+  box-shadow: 0 0 10px #0000001a;
+}
+
+.card .card-img-top {
+  object-fit: cover;
+  height: 300px;
+}
+
+.card .card-body {
+  padding: 1rem;
+}
+
+.card .card-body .card-title {
+  margin-bottom: .5rem;
+  font-size: 1.25rem;
+}
+
+.card .card-body .card-text {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.card .card-body .open-button {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card .card-body .open-button:hover {
+  text-decoration: underline;
+}
+
+.card .card-body .favorite-button {
+  margin-top: 1rem;
+}
+
+.card .card-body .favorite-button button {
+  margin-right: 1rem;
+}
+
+.card .card-body .favorite-button button.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.card .card-body .favorite-button button.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.card .card-body .favorite-button button.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.card .card-body .favorite-button button.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.back-button {
   text-align: center;
   color: #fff;
   cursor: pointer;
@@ -18,17 +82,9 @@
   font-size: 14px;
 }
 
-.card .open-button:hover {
+.back-button:hover {
   color: #fff;
   background-color: #0056b3;
-}
-
-.back-button {
-  color: #f5f5f5;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 12px;
 }
 
 img {
@@ -5815,8 +5871,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
