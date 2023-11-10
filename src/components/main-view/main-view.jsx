@@ -21,7 +21,7 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    
+
     fetch("https://movieapi-2cmo.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -54,6 +54,8 @@ export const MainView = () => {
         user={user}
         onLoggedOut={() => {
           setUser(null);
+          setToken(null);
+          localStorage.clear();
         }}
       />
       <Row className="justify-content-md-center">
@@ -105,7 +107,13 @@ export const MainView = () => {
           <Route
             path="/profile"
             element={
-              <ProfileView user={user} token={token} setUser={setUser} movies={movies} />
+              <ProfileView
+                user={user}
+                token={token}
+                setUser={setUser}
+                setToken={setToken}
+                movies={movies}
+              />
             }
           />
           <Route
@@ -120,7 +128,12 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-4" key={movie.Title} md={3}>
-                        <MovieCard movieData={movie} />
+                        <MovieCard
+                          movieData={movie}
+                          user={user}
+                          token={token}
+                          setUser={setUser}
+                        />
                       </Col>
                     ))}
                   </>
