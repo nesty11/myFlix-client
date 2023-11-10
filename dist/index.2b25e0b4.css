@@ -6,9 +6,15 @@
   padding: 4px 12px;
 }
 
-.card {
-  width: 300px;
+.movie-cards-container {
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 10px;
+  display: flex;
+}
+
+.card {
+  width: calc(100% - 20px);
   box-shadow: 0 0 10px #0000001a;
 }
 
