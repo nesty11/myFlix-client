@@ -1,20 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Button, Col, Form, Row, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export const ProfileView = ({ user, token, setUser, movies }) => {
-  const [username, setUsername] = useState(user.Username);
+export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [username, setUsername] = useState(user ? user.Username : "");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState(user.Email);
+  const [email, setEmail] = useState(user ? user.Email : "");
   const [showModal, setShowModal] = useState(false);
 
-  const favoriteMovies = movies.filter((movie) => {
-    return user.FavoriteMovies.includes(movie.title);
-  });
+  const favoriteMovies = user ? movies.filter((movie) => user.FavoriteMovies.includes(movie.Title)) : [];
+
 
   let result = movies.filter((movie) =>
-    user.FavoriteMovies.includes(movie.title)
-  );
+  user && user.FavoriteMovies.includes(movie.Title)
+);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -68,11 +70,20 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
     ).then((response) => {
       if (response.ok) {
         setUser(null);
+        localStorage.clear();
         alert("Your account has been deleted!");
       } else {
-        alert("something went wrong!");
+        alert("Something went wrong!");
       }
     });
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    if (token) {
+      setToken(null);
+    }
+    localStorage.clear();
   };
 
   return (
@@ -134,23 +145,24 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
         </Col>
       </Row>
 
-      <Row>
-        <Col>
-          <h1 className="favorite-title">Favorite Movies:</h1>
+      <Row className="justify-content-center">
+        <Col className="delete-button" md={5}>
+          <Button variant="link" className="text-danger" onClick={handleLogout}>
+          <Link to="/login">Logout</Link>
+          </Button>
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        {result.map((movie) => (
-          <Col className="mb-4" key={movie.Title} xs={6} md={3}>
-            <MovieCard
-              movie={movie}
-              user={user}
-              token={token}
-              setUser={setUser}
-            ></MovieCard>
-          </Col>
-        ))}
-      </Row>
+
+      {result.map((movie) => (
+        <Col className="mb-4" key={movie.Title} xs={6} md={3}>
+          <MovieCard
+            movie={movie}
+            user={user}
+            token={token}
+            setUser={setUser}
+          ></MovieCard>
+        </Col>
+      ))}
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
