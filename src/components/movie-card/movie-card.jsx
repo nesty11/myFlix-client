@@ -8,10 +8,12 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (user && user.favoriteMovies.includes(movieData._id)) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
+    if (user && user.favoriteMovies) {
+      if (user.favoriteMovies.includes(movieData._id)) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
     }
   }, [user, movieData._id]);
 
@@ -24,7 +26,7 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
         if (response.ok) {
           return response.json();
         } else {
-          console.log("Failed to add favorite movie!");
+          throw new Error("Failed to add favorite movie.");
         }
       })
       .then((responseUser) => {
@@ -36,7 +38,7 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
         }
       })
       .catch((err) => {
-        console.log(`Error adding favorite movie: ${err}`);
+        console.error(`Error adding favorite movie: ${err}`);
       });
   };
 
@@ -49,7 +51,7 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
         if (response.ok) {
           return response.json();
         } else {
-          console.log("Failed to remove favorite movie!");
+          throw new Error("Failed to remove favorite movie.");
         }
       })
       .then((responseUser) => {
@@ -61,7 +63,7 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
         }
       })
       .catch((err) => {
-        console.log(`Error removing favorite movie: ${err}`);
+        console.error(`Error removing favorite movie: ${err}`);
       });
   };
 
@@ -98,6 +100,7 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
 
 MovieCard.propTypes = {
   movieData: PropTypes.shape({
+    _id: PropTypes.string,
     Title: PropTypes.string,
     Description: PropTypes.string,
     Genre: PropTypes.shape({
@@ -105,11 +108,11 @@ MovieCard.propTypes = {
       Description: PropTypes.string,
     }),
     Director: PropTypes.shape({
+      Name: PropTypes.string,
       Bio: PropTypes.string,
       Birth: PropTypes.string,
     }),
     Featured: PropTypes.bool,
-    _id: PropTypes.string,
   }).isRequired,
   user: PropTypes.object,
   token: PropTypes.string,
