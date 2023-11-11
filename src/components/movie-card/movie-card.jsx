@@ -15,7 +15,7 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
         setIsFavorite(false);
       }
     }
-  }, [user, movieData._id]);
+  }, [user, movieData]);
 
   const addFavoriteMovie = () => {
     fetch(
@@ -68,8 +68,8 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
   };
 
   return (
-    <Card className="card">
-      <Card.Img variant="top" src={movieData.image} />
+    <Card className="movie-cards-container">
+      {/*   <Card.Img variant="top" src={movieData.image} /> */}
       <Card.Body className="d-flex flex-column align-items-center">
         <Card.Title className="text-center mb-3">{movieData.Title}</Card.Title>
         <Card.Text className="text-center mb-3">
