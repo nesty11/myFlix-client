@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Button, Col, Form, Row, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
 export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token");
   const [username, setUsername] = useState(user ? user.Username : "");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(user ? user.Email : "");
   const [showModal, setShowModal] = useState(false);
 
-  const favoriteMovies = user ? movies.filter((movie) => user.FavoriteMovies.includes(movie.Title)) : [];
-
-
-  let result = movies.filter((movie) =>
-  user && user.FavoriteMovies.includes(movie.Title)
-);
+  const favoriteMovies = user
+    ? movies.filter((movie) => user.FavoriteMovies.includes(movie.Title))
+    : [];
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -32,17 +28,14 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
       data["Password"] = password;
     }
 
-    fetch(
-      `https://movieapi-2cmo.onrender.com/users/${user.Username}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`https://movieapi-2cmo.onrender.com/users/${user.Username}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -59,19 +52,17 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
   };
 
   const handleDeleteUser = () => {
-    fetch(
-      `https://movieapi-2cmo.onrender.com/users/${user.Username}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ).then((response) => {
+    fetch(`https://movieapi-2cmo.onrender.com/users/${user.Username}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
       if (response.ok) {
         setUser(null);
         localStorage.clear();
         alert("Your account has been deleted!");
+        window.location.replace("/login");
       } else {
         alert("Something went wrong!");
       }
@@ -135,6 +126,28 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
 
       <Row className="justify-content-center">
         <Col className="delete-button" md={5}>
+          <Button variant="link" className="text-danger" onClick={handleLogout}>
+            <Link to="/login">Logout</Link>
+          </Button>
+        </Col>
+      </Row>
+
+      <Row className="justify-content-md-center align-items-center">
+        <h2 className="profile-title">Favorite Movies:</h2>
+        {favoriteMovies.map((movie) => (
+          <Col key={movie._id} className="mb-4" xs={6} md={3}>
+            <MovieCard
+              movie={movie}
+              user={user}
+              token={token}
+              setUser={setUser}
+            />
+          </Col>
+        ))}
+      </Row>
+
+      <Row className="justify-content-center">
+        <Col className="delete-button" md={5}>
           <Button
             variant="link"
             className="text-danger"
@@ -144,25 +157,6 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
           </Button>
         </Col>
       </Row>
-
-      <Row className="justify-content-center">
-        <Col className="delete-button" md={5}>
-          <Button variant="link" className="text-danger" onClick={handleLogout}>
-          <Link to="/login">Logout</Link>
-          </Button>
-        </Col>
-      </Row>
-
-      {result.map((movie) => (
-        <Col className="mb-4" key={movie.Title} xs={6} md={3}>
-          <MovieCard
-            movie={movie}
-            user={user}
-            token={token}
-            setUser={setUser}
-          ></MovieCard>
-        </Col>
-      ))}
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
