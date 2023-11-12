@@ -10,8 +10,13 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
   const [email, setEmail] = useState(user ? user.Email : "");
   const [showModal, setShowModal] = useState(false);
 
-  const favoriteMovies = user
-    ? movies.filter((movie) => user.FavoriteMovies.includes(movie.Title))
+  console.log("user:", user);
+  console.log("user.FavoriteMovies:", user.FavoriteMovies);
+
+  const FavoriteMovies = user
+    ? user.FavoriteMovies.map((movieTitle) =>
+        movies.find((movie) => movie.Title === movieTitle)
+      )
     : [];
 
   const handleShowModal = () => setShowModal(true);
@@ -134,16 +139,20 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
 
       <Row className="justify-content-md-center align-items-center">
         <h2 className="profile-title">Favorite Movies:</h2>
-        {favoriteMovies.map((movie) => (
-          <Col key={movie._id} className="mb-4" xs={6} md={3}>
-            <MovieCard
-              movie={movie}
-              user={user}
-              token={token}
-              setUser={setUser}
-            />
-          </Col>
-        ))}
+        {FavoriteMovies.map(
+          (movie) =>
+            movie &&
+            movie._id && (
+              <Col key={movie._id} className="mb-4" xs={6} md={3}>
+                <MovieCard
+                  movieData={movie}
+                  user={user}
+                  token={token}
+                  setUser={setUser}
+                />
+              </Col>
+            )
+        )}
       </Row>
 
       <Row className="justify-content-center">
