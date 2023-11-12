@@ -8,8 +8,8 @@ export const MovieCard = ({ movieData, user, token, setUser }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (user && user.favoriteMovies) {
-      if (user.favoriteMovies.includes(movieData._id)) {
+    if (user && user.FavoriteMovies) {
+      if (user.FavoriteMovies.includes(movieData._id)) {
         setIsFavorite(true);
       } else {
         setIsFavorite(false);
@@ -113,6 +113,7 @@ MovieCard.propTypes = {
       Birth: PropTypes.string,
     }),
     Featured: PropTypes.bool,
+    FavoriteMovies: PropTypes.array,
   }).isRequired,
   user: PropTypes.object,
   token: PropTypes.string,
