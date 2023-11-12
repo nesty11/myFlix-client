@@ -17,6 +17,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
 
+  // MainView component
   useEffect(() => {
     if (!token) {
       return;
@@ -42,6 +43,7 @@ export const MainView = () => {
               Birth: movie.Director.Birth,
             },
             Featured: movie.Featured,
+            FavoriteMovies: movie.FavoriteMovies,
           };
         });
         setMovies(moviesFromApi);
