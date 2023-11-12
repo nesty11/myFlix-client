@@ -14,9 +14,10 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
   console.log("user.FavoriteMovies:", user.FavoriteMovies);
 
   const FavoriteMovies = user
-    ? user.FavoriteMovies.map((movieTitle) =>
-        movies.find((movie) => movie.Title === movieTitle)
-      )
+    ? user.FavoriteMovies.map((movieId) => {
+        console.log("movieId", movieId);
+        return movies.find((movie) => movie._id === movieId);
+      })
     : [];
 
   const handleShowModal = () => setShowModal(true);
@@ -139,10 +140,11 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
 
       <Row className="justify-content-md-center align-items-center">
         <h2 className="profile-title">Favorite Movies:</h2>
-        {FavoriteMovies.map(
-          (movie) =>
-            movie &&
-            movie._id && (
+        {FavoriteMovies.length === 0 ? (
+          <Col>No favorite movies yet!</Col>
+        ) : (
+          FavoriteMovies.map((movie) =>
+            movie && movie._id ? (
               <Col key={movie._id} className="mb-4" xs={6} md={3}>
                 <MovieCard
                   movieData={movie}
@@ -151,7 +153,8 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
                   setUser={setUser}
                 />
               </Col>
-            )
+            ) : null
+          )
         )}
       </Row>
 
