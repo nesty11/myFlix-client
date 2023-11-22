@@ -63,25 +63,16 @@ export const MainView = () => {
   }, [token]);
 
   return (
-    <>
-      <NavbarComponent
-        user={user}
-        movies={movies}
-        search={search}
-        setSearch={setSearch}
-        onLoggedOut={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}
-      />
     <BrowserRouter>
       <NavigationBar
-        user={user}
-        onLoggedOut={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
+         user={user}
+         movies={movies}
+         search={search}
+         setSearch={setSearch}
+         onLoggedOut={() => {
+           setUser(null);
+           setToken(null);
+           localStorage.clear();
         }}
       />
       <Row className="justify-content-md-center">
