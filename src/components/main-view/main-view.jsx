@@ -16,12 +16,24 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   // MainView component
   useEffect(() => {
     if (!token) {
       return;
     }
+    const getSearchedMovies = (arr, query) => {
+      return arr.filter((movie) => {
+        return movie.title.toLowerCase().includes(query.toLowerCase());
+      });
+    };
+    console.log(getSearchedMovies(movies, search));
+  
+    useEffect(() => {
+      setFilteredMovies(getSearchedMovies(movies, search));
+    }, [search, movies]);
 
     fetch("https://movieapi-2cmo.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
@@ -51,6 +63,18 @@ export const MainView = () => {
   }, [token]);
 
   return (
+    <>
+      <NavbarComponent
+        user={user}
+        movies={movies}
+        search={search}
+        setSearch={setSearch}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
     <BrowserRouter>
       <NavigationBar
         user={user}
@@ -128,7 +152,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                       <Col className="mb-4" key={movie.Title} md={3}>
                         <MovieCard
                           movieData={movie}
@@ -146,5 +170,6 @@ export const MainView = () => {
         </Routes>
       </Row>
     </BrowserRouter>
+    </>
   );
 };
