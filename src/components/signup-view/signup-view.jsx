@@ -61,6 +61,7 @@ export const SignupView = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     minLength="5"
+                    title="Username must be at least 5 characters long."
                   />
                 </Form.Group>
 
@@ -73,6 +74,7 @@ export const SignupView = () => {
                     required
                     minLength="6"
                     pattern="^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$"
+                    title="Password must be at least 6 characters long and contain at least one number and a symbol."
                   />
                 </Form.Group>
 
