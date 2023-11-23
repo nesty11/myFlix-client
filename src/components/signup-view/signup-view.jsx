@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Container, Row, Col, Card, Form, CardGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-
 export const SignupView = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -45,7 +44,7 @@ export const SignupView = () => {
           <CardGroup className="">
             <Card className="mb- border border-0">
               <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formName">
+                <Form.Group controlId="formName">
                   <Form.Label>Name:</Form.Label>
                   <Form.Control
                     type="text"

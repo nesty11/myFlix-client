@@ -24,55 +24,65 @@ export const MainView = () => {
     if (!token) {
       return;
     }
+
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(
+          "https://movieapi-2cmo.onrender.com/movies",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = await response.json();
+
+        const moviesFromApi = data.map((movie) => ({
+          _id: movie._id,
+          Title: movie.Title,
+          Description: movie.Description,
+          Genre: {
+            Name: movie.Genre.Name,
+            Description: movie.Genre.Description,
+          },
+          Director: {
+            Name: movie.Director.Name,
+            Bio: movie.Director.Bio,
+            Birth: movie.Director.Birth,
+          },
+          Featured: movie.Featured,
+          FavoriteMovies: movie.FavoriteMovies,
+        }));
+
+        setMovies(moviesFromApi);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
     const getSearchedMovies = (arr, query) => {
       return arr.filter((movie) => {
-        return movie.title.toLowerCase().includes(query.toLowerCase());
+        return movie.Title.toLowerCase().includes(query.toLowerCase());
       });
     };
-    console.log(getSearchedMovies(movies, search));
-  
-    useEffect(() => {
-      setFilteredMovies(getSearchedMovies(movies, search));
-    }, [search, movies]);
 
-    fetch("https://movieapi-2cmo.onrender.com/movies", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.map((movie) => {
-          return {
-            _id: movie._id,
-            Title: movie.Title,
-            Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description,
-            },
-            Director: {
-              Name: movie.Director.Name,
-              Bio: movie.Director.Bio,
-              Birth: movie.Director.Birth,
-            },
-            Featured: movie.Featured,
-            FavoriteMovies: movie.FavoriteMovies,
-          };
-        });
-        setMovies(moviesFromApi);
-      });
-  }, [token]);
+    const updateFilteredMovies = () => {
+      setFilteredMovies(getSearchedMovies(movies, search));
+    };
+
+    fetchMovies();
+    updateFilteredMovies();
+  }, [token, search, movies]);
 
   return (
     <BrowserRouter>
       <NavigationBar
-         user={user}
-         movies={movies}
-         search={search}
-         setSearch={setSearch}
-         onLoggedOut={() => {
-           setUser(null);
-           setToken(null);
-           localStorage.clear();
+        user={user}
+        movies={movies}
+        search={search}
+        setSearch={setSearch}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
         }}
       />
       <Row className="justify-content-md-center">
