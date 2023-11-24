@@ -20,11 +20,17 @@ export const MainView = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   // MainView component
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
+  const getSearchedMovies = (arr, query) => {
+    return arr.filter((movie) => {
+      return movie.Title.toLowerCase().includes(query.toLowerCase());
+    });
+  };
 
+  const updateFilteredMovies = () => {
+    setFilteredMovies(getSearchedMovies(movies, search));
+  };
+
+  useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await fetch(
@@ -58,19 +64,12 @@ export const MainView = () => {
       }
     };
 
-    const getSearchedMovies = (arr, query) => {
-      return arr.filter((movie) => {
-        return movie.Title.toLowerCase().includes(query.toLowerCase());
-      });
-    };
-
-    const updateFilteredMovies = () => {
-      setFilteredMovies(getSearchedMovies(movies, search));
-    };
-
     fetchMovies();
+  }, [token]);
+
+  useEffect(() => {
     updateFilteredMovies();
-  }, [token, search, movies]);
+  }, [search, movies]);
 
   return (
     <BrowserRouter>
