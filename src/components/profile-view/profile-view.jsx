@@ -10,9 +10,6 @@ export const ProfileView = ({ user, token, setUser, setToken, movies }) => {
   const [email, setEmail] = useState(user ? user.Email : "");
   const [showModal, setShowModal] = useState(false);
 
-  console.log("user:", user);
-  console.log("user.FavoriteMovies:", user.FavoriteMovies);
-
   const FavoriteMovies = user
     ? user.FavoriteMovies.map((movieId) => {
         console.log("movieId", movieId);
