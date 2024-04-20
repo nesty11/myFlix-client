@@ -44,3 +44,29 @@ NvFlix is a dynamic web application designed to revolutionize your movie-watchin
   Navigation and route issues leading to 404 errors.
 - **Solution:**
   Reviewed and corrected navigation components and route configurations for a smooth user experience.
+
+## Installation
+
+To get started with NvFlix, follow these steps:
+
+1. Clone the repository::
+```
+   git clone https://github.com/your-username/nvflix.git
+```
+
+2. Navigate to the project directory::
+```
+   cd nvflix
+```
+
+3. Install dependencies::
+```
+   npm install
+```
+
+4. Start the development server::
+```
+   npm start
+```
+
+5. Open your browser and visit http://localhost:3000 to access NvFlix and start exploring!
